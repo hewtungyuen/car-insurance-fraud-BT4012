@@ -46,6 +46,6 @@ def get_scores(y_test, predictions):
     print("Accuracy: %.2f%%" % (accuracy * 100.0))
     print("Recall: %.2f%%" % (recall * 100.0))
     print("F1: %.2f" % f1)
-    print("Fbeta: %.2f" % fbeta)
+    print("Fbeta: %.3f" % fbeta)
     print("ROC AUC: %.2f" % roc_auc)
     print("PR AUC: %.2f" % pr_auc )
