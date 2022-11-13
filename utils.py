@@ -1,5 +1,22 @@
+from sklearn.metrics import precision_score, accuracy_score, recall_score, f1_score, fbeta_score, roc_auc_score, \
+    average_precision_score
+
+
+def get_train_and_test_values(df_train, df_valid, df_test):
+    X_train = df_train.drop('FraudFound_P', axis=1).values
+    y_train = df_train['FraudFound_P'].values
+
+    X_valid = df_train.drop('FraudFound_P', axis=1).values
+    y_valid = df_train['FraudFound_P'].values
+
+    X_test = df_test.drop('FraudFound_P', axis=1).values
+    y_test = df_test['FraudFound_P'].values
+
+    return X_train, y_train, X_valid, y_valid, X_test, y_test
+
+
 def obtain_predictions(model, X_train, y_train, X_test, y_test):
-    model.fit(X_train ,y_train)
+    model.fit(X_train, y_train)
     predictions = model.predict(X_test)
     return predictions
 
