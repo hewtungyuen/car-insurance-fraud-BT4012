@@ -38,7 +38,7 @@ def get_scores(y_test, predictions):
     accuracy = accuracy_score(y_test, predictions)
     recall = recall_score(y_test, predictions)
     f1 = f1_score(y_test, predictions)
-    fbeta = fbeta_score(y_test, predictions, beta=0.75)
+    fbeta = fbeta_score(y_test, predictions, beta=2)
     roc_auc = roc_auc_score(y_test, predictions)
     pr_auc = average_precision_score(y_test, predictions)
 
