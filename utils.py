@@ -53,7 +53,7 @@ def get_scores(y_test, predictions):
     print("PR AUC: %.3f" % pr_auc )
 
 
-def get_confusion_matrix(actual, predicted):
+def get_confusion_matrix(actual, predicted, title):
     cf = confusion_matrix(actual, predicted)
     group_names = ['True Negative','False Positive','False Negative','True Positive'] 
     group_counts = ['{0:0.0f}'.format(value) for value in cf.flatten()] 
@@ -62,5 +62,5 @@ def get_confusion_matrix(actual, predicted):
     labels = np.asarray(labels).reshape(2,2)
 
     s = sns.heatmap(cf, annot=labels, fmt='', cmap='Blues', xticklabels=['non fraud', 'fraud'], yticklabels=['non fraud', 'fraud'])
-    s.set(xlabel='Predictions', ylabel='True Labels')
+    s.set(xlabel='Predictions', ylabel='True Labels', title=title)
     return s
