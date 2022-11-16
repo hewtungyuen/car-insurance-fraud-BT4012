@@ -1,6 +1,8 @@
 from imblearn.combine import SMOTEENN
+import seaborn as sns
+import numpy as np
 from sklearn.metrics import precision_score, accuracy_score, recall_score, f1_score, fbeta_score, roc_auc_score, \
-    average_precision_score
+    average_precision_score, confusion_matrix
 
 RANDOM_STATE = 20
 
@@ -42,10 +44,23 @@ def get_scores(y_test, predictions):
     roc_auc = roc_auc_score(y_test, predictions)
     pr_auc = average_precision_score(y_test, predictions)
 
-    print("Precision: %.3f" % (precision * 100.0))
-    print("Accuracy: %.3f" % (accuracy * 100.0))
-    print("Recall: %.3f" % (recall * 100.0))
+    print("Precision: %.3f" % precision)
+    print("Accuracy: %.3f" % accuracy )
+    print("Recall: %.3f" % recall)
     print("F1: %.3f" % f1)
     print("Fbeta: %.3f" % fbeta)
     print("ROC AUC: %.3f" % roc_auc)
     print("PR AUC: %.3f" % pr_auc )
+
+
+def get_confusion_matrix(actual, predicted, title):
+    cf = confusion_matrix(actual, predicted)
+    group_names = ['True Negative','False Positive','False Negative','True Positive'] 
+    group_counts = ['{0:0.0f}'.format(value) for value in cf.flatten()] 
+
+    labels = [f'{v1}\n{v2}' for v1, v2 in zip(group_names,group_counts)]
+    labels = np.asarray(labels).reshape(2,2)
+
+    s = sns.heatmap(cf, annot=labels, fmt='', cmap='Blues', xticklabels=['non fraud', 'fraud'], yticklabels=['non fraud', 'fraud'])
+    s.set(xlabel='Predictions', ylabel='True Labels', title=title)
+    return s
